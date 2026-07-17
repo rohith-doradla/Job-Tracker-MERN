@@ -1,8 +1,11 @@
 import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import BoardCard from '../components/BoardCard';
-import BoardForm from '../components/BoardForm';
+// import BoardForm from '../components/Boards/BoardForm.jsx';
+import AddBoardModal from '../components/Boards/AddBoardModal.jsx';
+import EditBoardModal from '../components/Boards/EditBoardModal.jsx';
+
+import BoardCard from '../components/Boards/BoardCard.jsx';
 
 // import { dummyBoardsData } from '../data';
 
@@ -35,6 +38,7 @@ function BoardsPage() {
       const url = '/boards/list';
 
       const res = await api.get(url);
+
       setBoards(res.data.data);
     } catch (e) {
       console.log('Failed to fetch boards');
@@ -82,7 +86,6 @@ function BoardsPage() {
       </div>
 
       {/* Board Cards */}
-
       {loading ? (
         <div className="flex justify-center p-12">
           <div className="animate-spin h-8 w-8 border-2 border-indigo-600 border-t-transparent rounded-full" />
@@ -140,7 +143,7 @@ function BoardsPage() {
       )}
 
       {/* Add Board */}
-      {addBoard && (
+      {/* {addBoard && (
         <div
           onClick={() => {
             setAddBoard(false);
@@ -165,7 +168,7 @@ function BoardsPage() {
                 className="p-2 rounded-lg hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600"
               >
                 <FontAwesomeIcon icon={faX} />
-              </button> */}
+              </button> 
             </div>
 
             <div className="p-6">
@@ -181,10 +184,14 @@ function BoardsPage() {
             </div>
           </div>
         </div>
+      )} */}
+
+      {addBoard && (
+        <AddBoardModal setAddBoard={setAddBoard} fetchBoards={fetchBoards} />
       )}
 
       {/* Edit Board */}
-      {editBoard && (
+      {/* {editBoard && (
         <div
           onClick={() => {
             setEditBoard(null);
@@ -208,7 +215,7 @@ function BoardsPage() {
                 className="p-2 rounded-lg hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600"
               >
                 <FontAwesomeIcon icon={faX} />
-              </button> */}
+              </button> 
             </div>
 
             <div className="p-6">
@@ -225,6 +232,14 @@ function BoardsPage() {
             </div>
           </div>
         </div>
+      )} */}
+
+      {editBoard && (
+        <EditBoardModal
+          board={editBoard}
+          setEditBoard={setEditBoard}
+          fetchBoards={fetchBoards}
+        />
       )}
     </div>
   );

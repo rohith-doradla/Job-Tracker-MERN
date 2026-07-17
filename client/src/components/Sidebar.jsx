@@ -5,15 +5,16 @@ import { useLocation, Link } from 'react-router-dom';
 
 import { useAuth } from '../context/AuthContext.jsx';
 
+import { dummyProfileData } from '../data.js';
+
+import api from '../api/axios.js';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBorderAll,
   faBriefcase,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-
-import { dummyProfileData } from '../data.js';
-import api from '../api/axios.js';
 
 function Sidebar() {
   const { pathname } = useLocation();

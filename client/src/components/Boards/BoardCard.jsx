@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 // import { dummyBoardsData } from '../data';
 
-import api from '../api/axios';
+import api from '../../api/axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';

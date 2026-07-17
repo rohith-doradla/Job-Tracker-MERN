@@ -5,6 +5,7 @@ import { Link, useNavigate, Navigate } from 'react-router-dom';
 
 import { useAuth } from '../context/AuthContext.jsx';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 function LoginPage() {
@@ -27,6 +28,8 @@ function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    console.log('Login clicked');
 
     setLoading(true);
 
@@ -115,7 +118,7 @@ function LoginPage() {
               disabled={loading}
               className="w-full py-3 bg-linear-to-r from-indigo-600 to-indigo-500 text-white rounded-md text-sm font-semibold hover:from-indigo-700 hover:to-indigo-600 disabled:opacity-50  transition-all  duration-200 shadow-lg shadow-indigo-500/25 active:scale-[0.98] flex iems-center justify-center"
             >
-              {loading ? '<FontAwesomeIcon icon={faCircleNotch} />' : 'Login'}
+              {loading ? <FontAwesomeIcon icon={faCircleNotch} /> : 'Login'}
             </button>
           </form>
         </div>
