@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../context/AuthContext.jsx';
 
@@ -22,6 +22,8 @@ function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { loading, logout } = useAuth();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsername(dummyProfileData.firstName + ' ' + dummyProfileData.lastName);
@@ -55,7 +57,8 @@ function Sidebar() {
 
   function handleLogout() {
     logout();
-    window.location.href = '/login';
+    // window.location.href = '/login';
+    navigate('/login');
   }
 
   const sidebarContent = (

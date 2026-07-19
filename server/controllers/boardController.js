@@ -21,6 +21,22 @@ async function getBoards(req, res) {
 
 // console.log(error);
 
+async function getBoard(req, res) {
+  try {
+    const { boardId } = req.params;
+
+    const board = await Board.findById(boardId);
+
+    if (!board) {
+      return res.status(404).json({ error: 'Board not found' });
+    }
+
+    return res.json({ data: board });
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to fetch board' });
+  }
+}
+
 // POST /api/boards
 async function createBoard(req, res) {
   try {
@@ -91,4 +107,4 @@ async function deleteBoard(req, res) {
   }
 }
 
-export { getBoards, createBoard, updateBoard, deleteBoard };
+export { getBoards, getBoard, createBoard, updateBoard, deleteBoard };

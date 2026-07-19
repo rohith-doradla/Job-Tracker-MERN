@@ -1,18 +1,21 @@
 import Section from '../models/Section.js';
 
-import { useParams } from 'react-router-dom';
-
 //GET /api/sections
 async function getSections(req, res) {
   try {
-    const { boardId } = useParams();
+    const { boardId } = req.params;
 
-    const sections = await Section.find({ boardId: boardId }).lean();
+    const sections = await Section.find({
+      boardId: boardId,
+      isDeleted: false,
+    }).lean();
 
     const result = sections.map((s) => ({ ...s, id: s._id.toString() }));
 
     return res.json({ data: result });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to fetch sections' });
+  }
 }
 
 // POST /api/sections
@@ -24,12 +27,14 @@ async function createSection(req, res) {
       return res.status(400).json({ error: 'Failed to create section' });
     }
 
-    const { boardId } = useParams();
+    const { boardId } = req.params;
 
     const section = await Section.insertOne({ boardId, sectionName });
 
     return res.json({ success: true });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to create section' });
+  }
 }
 
 // PUT /api/sections/:sectionId
@@ -41,7 +46,7 @@ async function updateSection(req, res) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const sectionId = req.params.sectionId;
+    const { sectionId } = req.params;
 
     const sectionDetails = await Section.findById(sectionId);
 
@@ -52,24 +57,28 @@ async function updateSection(req, res) {
     await Section.findByIdAndUpdate(sectionId, { sectionName });
 
     return res.json({ success: true });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to update section' });
+  }
 }
 
 // DELETE /api/sections/:sectionId
-async function deletetSection(req, res) {
+async function deleteSection(req, res) {
   try {
-    const { sectionId } = req.params.sectionId;
+    const { sectionId } = req.params;
 
     const sectionDetails = await Section.findById(sectionId);
 
     if (!sectionDetails) {
-      return res.sttaus(400).json({ error: 'Section Not found' });
+      return res.status(400).json({ error: 'Section not found' });
     }
 
-    await Section.findByIdAndUpdate(sectionId, { sisDeleted: true });
+    await Section.findByIdAndUpdate(sectionId, { isDeleted: true });
 
     return res.json({ success: true });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to delete section' });
+  }
 }
 
 export { getSections, createSection, updateSection, deleteSection };
