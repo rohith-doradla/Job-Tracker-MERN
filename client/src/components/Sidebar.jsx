@@ -40,7 +40,7 @@ function Sidebar() {
   const navItems = [
     {
       name: 'Dashboard',
-      href: '/',
+      href: '/dashboard',
       icon: faBorderAll,
     },
     {
@@ -58,7 +58,7 @@ function Sidebar() {
   function handleLogout() {
     logout();
     // window.location.href = '/login';
-    navigate('/login');
+    navigate('/login', { replace: true });
   }
 
   const sidebarContent = (
