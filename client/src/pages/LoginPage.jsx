@@ -36,7 +36,7 @@ function LoginPage() {
     try {
       await login(loginInput.email, loginInput.password);
 
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       setError(e.response?.data?.error || e.message || 'Login failed');
     } finally {

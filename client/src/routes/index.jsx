@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import HomePage from '../pages/HomePage';
 
@@ -17,7 +17,16 @@ import ProfilePage from '../pages/ProfilePage';
 import ErrorPage from '../pages/ErrorPage';
 
 export const router = createBrowserRouter([
+
+
+
   { path: '/home', element: <HomePage /> },
+
+ 
+  {
+    path: '/',
+    element: <Navigate to="/register" replace />,
+  },
 
   { path: '/register', element: <RegisterPage /> },
   { path: '/login', element: <LoginPage /> },
@@ -28,7 +37,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      { path: '/', element: <DashboardPage /> },
+      { path: '/dashboard', element: <DashboardPage /> },
       { path: 'boards', element: <BoardsPage /> },
       { path: 'boards/:id', element: <BoardsDetailPage /> },
       { path: 'profile', element: <ProfilePage /> },

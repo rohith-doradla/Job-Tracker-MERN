@@ -11,7 +11,7 @@ function Layout() {
 
   if (loading) return <div>Loading...</div>; //<Loading/>
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace/>;
   }
 
   return (
